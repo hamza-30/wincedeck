@@ -23,7 +23,7 @@ function Navbar() {
   return (
     <>
       <div
-        className={`h-13 mx-auto flex justify-between items-center px-5.5 max-w-7xl`}
+        className={`w-full h-13 mx-auto flex justify-between items-center px-5.5 max-w-7xl`}
       >
         <img
           src={logo}
