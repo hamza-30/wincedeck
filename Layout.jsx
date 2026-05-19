@@ -4,9 +4,11 @@ import Navbar from "./src/components/Navbar";
 
 function Layout() {
   return (
-    <div>
+    <div className="min-h-screen flex flex-col">
       <Navbar />
-      <Outlet />
+      <main className="flex-1 flex flex-col">
+        <Outlet />
+      </main>
     </div>
   );
 }
