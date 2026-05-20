@@ -16,7 +16,7 @@ function HeroSection() {
         </div>
 
         <div
-          className={`bg-white w-full h-fit rounded-lg border border-gray-200`}
+          className={`bg-white w-full h-fit rounded-lg border border-gray-200 shadow-lg`}
         >
           <div
             className={`w-full flex flex-col font-mono p-4 gap-y-1 border-b border-b-gray-200 hover:bg-gray-50 active:bg-gray-50`}
