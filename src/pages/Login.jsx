@@ -6,10 +6,12 @@ import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
 import { useAuth } from "../hooks/useAuth";
 import HeroSection from "../components/HeroSection";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [seePassword, setSeePassword] = useState(false);
   const { login, loading } = useAuth();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -20,6 +22,10 @@ function Login() {
   const onSubmit = async (data) => {
     const result = await login(data.email, data.password);
     console.log(result);
+
+    if (result.success) {
+      navigate("/dashboard");
+    }
   };
 
   return (
