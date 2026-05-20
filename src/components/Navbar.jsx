@@ -59,13 +59,13 @@ function Navbar() {
           <div className={`flex gap-x-5 items-center font-semibold`}>
             <Link
               to={"login"}
-              className={`text-[11.5px] text-gray-500 hover:text-black active:text-black`}
+              className={`text-[11.8px] text-gray-500 hover:text-black active:text-black`}
             >
               Login
             </Link>
             <Link
               to={"signup"}
-              className={`text-[11.5px] text-white bg-black px-2.5 py-1 rounded-lg active:scale-95 transition-transform duration-100 ease-in-out text-center`}
+              className={`text-[11.8px] text-white bg-black px-3 py-[4.5px] rounded-[0.4rem] active:scale-95 transition-transform duration-100 ease-in-out text-center`}
             >
               Get Started
             </Link>
