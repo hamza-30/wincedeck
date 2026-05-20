@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../assets/wincedeck-logo.png";
 import { FiUser } from "react-icons/fi";
 import { FiLogOut } from "react-icons/fi";
@@ -6,11 +6,13 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import LogoutModal from "./LogoutModal";
 
 function Navbar() {
   let location = useLocation();
-  const { user } = useAuth();
+  const { user, logout, loading } = useAuth();
   const navigate = useNavigate();
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   function handleLogoClick() {
     if (user) {
@@ -41,6 +43,7 @@ function Navbar() {
 
             <button
               className={`flex items-center gap-x-1 border border-gray-300 rounded-sm px-2 py-1 hover:bg-gray-100 active:bg-gray-100`}
+              onClick={() => setIsLogoutModalOpen(true)}
             >
               <FiLogOut className={`text-sm`} />
               <span
@@ -70,6 +73,15 @@ function Navbar() {
         )}
       </div>
       <div className={`border-b border-b-gray-200`}></div>
+
+      {isLogoutModalOpen && (
+        <LogoutModal
+          isModalOpen={isLogoutModalOpen}
+          setIsModalOpen={setIsLogoutModalOpen}
+          logout={logout}
+          loading={loading}
+        />
+      )}
     </>
   );
 }
