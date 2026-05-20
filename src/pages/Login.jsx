@@ -107,11 +107,12 @@ function Login() {
               {errors.password?.message}
             </span>
             <div className={`mt-1.5 mb-4 text-right`}>
-              <span
+              <Link
+                to={"/resetpassword"}
                 className={`text-[11px] text-gray-500 text-right font-semibold cursor-pointer hover:text-black active:text-black`}
               >
                 Forgot password?
-              </span>
+              </Link>
             </div>
             <button
               type="submit"

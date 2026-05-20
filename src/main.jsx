@@ -11,6 +11,7 @@ import Dashboard from "./pages/Dashboard.jsx";
 import NewProject from "./pages/NewProject.jsx";
 import Project from "./pages/Project.jsx";
 import ProjectSettings from "./pages/ProjectSettings.jsx";
+import ForgotPassword from "./pages/ForgotPassword.jsx";
 
 let router = createBrowserRouter([
   {
@@ -28,6 +29,9 @@ let router = createBrowserRouter([
       {
         path: "signup",
         element: <Signup />,
+      },{
+        path: "resetpassword",
+        element: <ForgotPassword />,
       },
       {
         path: "dashboard",
