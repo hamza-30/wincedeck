@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
 import { useAuth } from "../hooks/useAuth";
+import HeroSection from "../components/HeroSection";
 
 function Login() {
   const [seePassword, setSeePassword] = useState(false);
@@ -26,16 +27,16 @@ function Login() {
       <div
         className={`bg-white w-full lg:w-1/2 px-5.5 flex justify-center items-center`}
       >
-        <div className={`w-89`}>
+        <div className={`w-94`}>
           <div
             className={`font-mono text-[0.69rem] text-[#f97314] tracking-wider mb-1.5`}
           >
             LOG IN TO YOUR ACCOUNT
           </div>
-          <div className={`text-[1.6rem] font-extrabold mb-0.5`}>
+          <div className={`text-[1.8rem] font-extrabold mb-0.5`}>
             Welcome back
           </div>
-          <div className={`text-gray-500 text-[0.80rem] mb-6`}>
+          <div className={`text-gray-500 text-[0.85rem] mb-6`}>
             Pick up where the last exception left off.
           </div>
 
@@ -57,7 +58,7 @@ function Login() {
                 },
               })}
               placeholder="you@domain.com"
-              className={`w-full h-9 outline-none border border-gray-300 rounded-lg focus:border-transparent focus:ring focus:ring-[#f97314] transition-discrete ease-in-out duration-200 font-mono text-xs pl-3 mb-1`}
+              className={`w-full h-10 outline-none border border-gray-300 rounded-lg focus:border-transparent focus:ring focus:ring-[#f97314] transition-discrete ease-in-out duration-200 font-mono text-sm pl-3 mb-1`}
             />
             <span className="text-red-500 text-[10px] block">
               {errors.email?.message}
@@ -80,18 +81,18 @@ function Login() {
                   },
                 })}
                 placeholder="•••••••••••"
-                className={`w-full h-9 outline-none border border-gray-300 rounded-lg focus:border-transparent focus:ring focus:ring-[#f97314] transition-discrete ease-in-out duration-200 font-mono text-xs pl-3 pr-6.5`}
+                className={`w-full h-10 outline-none border border-gray-300 rounded-lg focus:border-transparent focus:ring focus:ring-[#f97314] transition-discrete ease-in-out duration-200 font-mono text-sm pl-3 pr-7`}
               />
 
               {seePassword && (
                 <IoEyeOutline
-                  className={`absolute right-2 bottom-2.5 text-gray-600`}
+                  className={`absolute text-lg right-2 bottom-3 text-gray-600`}
                   onClick={() => setSeePassword(!seePassword)}
                 />
               )}
               {!seePassword && (
                 <IoEyeOffOutline
-                  className={`absolute right-2 bottom-2.5 text-gray-600`}
+                  className={`absolute text-lg right-2 bottom-3 text-gray-600`}
                   onClick={() => setSeePassword(!seePassword)}
                 />
               )}
@@ -101,7 +102,7 @@ function Login() {
             </span>
             <div className={`mt-1.5 mb-4 text-right`}>
               <span
-                className={`text-[10px] text-gray-500 text-right font-semibold cursor-pointer hover:text-black active:text-black`}
+                className={`text-[11px] text-gray-500 text-right font-semibold cursor-pointer hover:text-black active:text-black`}
               >
                 Forgot password?
               </span>
@@ -109,7 +110,7 @@ function Login() {
             <button
               type="submit"
               disabled={loading}
-              className={`bg-black w-full text-white text-[0.82rem] h-9 rounded-lg font-semibold hover:bg-[#000000d2] active:bg-[#000000d2] transition-all ease-in-out duration-150 flex justify-center items-center`}
+              className={`bg-black w-full text-white text-[0.82rem] h-10 rounded-lg font-semibold hover:bg-[#000000d2] active:bg-[#000000d2] transition-all ease-in-out duration-150 flex justify-center items-center`}
             >
               {loading ? (
                 <span
@@ -121,7 +122,7 @@ function Login() {
             </button>
           </form>
 
-          <div className={`text-[11px] flex gap-x-1 mt-4 items-center`}>
+          <div className={`text-[12px] flex gap-x-1 mt-4 items-center`}>
             <span className={`text-gray-500`}>Don't have an account?</span>
             <Link
               to={"/signup"}
@@ -134,7 +135,9 @@ function Login() {
         </div>
       </div>
 
-      <div className={`w-1/2 hidden lg:block`}></div>
+      <div className={`w-1/2 hidden lg:block`}>
+        <HeroSection />
+      </div>
     </div>
   );
 }
