@@ -26,10 +26,10 @@ export function useAuth() {
     }
   };
 
-  const register = async (email, password) => {
+  const signup = async (email, password) => {
     setLoading(true);
     try {
-      await authService.register(email, password);
+      await authService.signup(email, password);
       return { success: true };
     } catch (err) {
       return { success: false, error: err.message };
@@ -62,5 +62,5 @@ export function useAuth() {
     }
   };
 
-  return { user, loading, login, register, logout, resetPassword };
+  return { user, loading, login, signup, logout, resetPassword };
 }

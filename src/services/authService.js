@@ -7,7 +7,7 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 
-export const register = (email, password) =>
+export const signup = (email, password) =>
   createUserWithEmailAndPassword(auth, email, password);
 
 export const login = (email, password) =>
