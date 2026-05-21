@@ -13,6 +13,7 @@ import Project from "./pages/Project.jsx";
 import ProjectSettings from "./pages/ProjectSettings.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import { Toaster } from "sonner";
+import AuthContextProvider from "./context/AuthContext/AuthContextProvider.jsx";
 
 let router = createBrowserRouter([
   {
@@ -65,6 +66,8 @@ createRoot(document.getElementById("root")).render(
       position="top-center"
       toastOptions={{ className: "mt-9 sm:mt-7", duration: "2500" }}
     />
-    <RouterProvider router={router} />
+    <AuthContextProvider>
+      <RouterProvider router={router} />
+    </AuthContextProvider>
   </StrictMode>,
 );
