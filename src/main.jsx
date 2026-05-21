@@ -63,7 +63,7 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Toaster
       position="top-center"
-      toastOptions={{ className: "mt-9 sm:mt-7" }}
+      toastOptions={{ className: "mt-9 sm:mt-7", duration: "2500" }}
     />
     <RouterProvider router={router} />
   </StrictMode>,
