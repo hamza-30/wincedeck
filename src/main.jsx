@@ -12,6 +12,7 @@ import NewProject from "./pages/NewProject.jsx";
 import Project from "./pages/Project.jsx";
 import ProjectSettings from "./pages/ProjectSettings.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
+import { Toaster } from "sonner";
 
 let router = createBrowserRouter([
   {
@@ -29,7 +30,8 @@ let router = createBrowserRouter([
       {
         path: "signup",
         element: <Signup />,
-      },{
+      },
+      {
         path: "resetpassword",
         element: <ForgotPassword />,
       },
@@ -59,6 +61,10 @@ let router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
+    <Toaster
+      position="top-center"
+      toastOptions={{ className: "mt-9 sm:mt-7" }}
+    />
     <RouterProvider router={router} />
   </StrictMode>,
 );

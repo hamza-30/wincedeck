@@ -2,6 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../hooks/useAuth";
 import HeroSection from "../components/HeroSection";
+import { toast } from "sonner";
 
 function ForgotPassword() {
   const {
@@ -14,9 +15,12 @@ function ForgotPassword() {
 
   const onSubmit = async (data) => {
     let result = await resetPassword(data.email);
+    console.log(result);
 
     if (result.success) {
-      console.log(result);
+      toast.success("If an account exists, a link was sent");
+    } else {
+      toast.error("Unable to reset password");
     }
   };
 

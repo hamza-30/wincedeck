@@ -7,6 +7,7 @@ import { IoEyeOffOutline } from "react-icons/io5";
 import { useAuth } from "../hooks/useAuth";
 import HeroSection from "../components/HeroSection";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 function Signup() {
   const [seePassword, setSeePassword] = useState(false);
@@ -27,6 +28,9 @@ function Signup() {
 
     if (result.success) {
       navigate("/dashboard");
+      toast.success("Account created!");
+    } else {
+      toast.error("Registration failed");
     }
   };
 

@@ -7,6 +7,7 @@ import { IoEyeOffOutline } from "react-icons/io5";
 import { useAuth } from "../hooks/useAuth";
 import HeroSection from "../components/HeroSection";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 function Login() {
   const [seePassword, setSeePassword] = useState(false);
@@ -25,6 +26,9 @@ function Login() {
 
     if (result.success) {
       navigate("/dashboard");
+      toast.success("Welcome back!");
+    } else {
+      toast.error("Invalid email or password");
     }
   };
 
