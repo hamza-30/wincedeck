@@ -17,7 +17,7 @@ function LogoutModal({ isModalOpen, setIsModalOpen, logout, loading }) {
   return (
     <div className={`absolute inset-0 flex items-center justify-center px-5.5`}>
       <div
-        className={`border border-gray-400 rounded-xl w-[24rem] flex flex-col gap-y-6 px-4 py-5`}
+        className={`border border-gray-400 rounded-xl w-[24rem] flex flex-col gap-y-6 px-4 py-5 bg-white`}
       >
         <span className={`text-[15px]`}>Are you sure you want to log out?</span>
         <div className={`text-[13px] flex justify-end gap-x-3`}>
