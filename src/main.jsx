@@ -14,6 +14,8 @@ import ProjectSettings from "./pages/ProjectSettings.jsx";
 import ForgotPassword from "./pages/ForgotPassword.jsx";
 import { Toaster } from "sonner";
 import AuthContextProvider from "./context/AuthContext/AuthContextProvider.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import PublicOnlyRoute from "./components/PublicOnlyRoute.jsx";
 
 let router = createBrowserRouter([
   {
@@ -21,38 +23,45 @@ let router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        index: true,
-        element: <LandingPage />,
-      },
-      {
-        path: "login",
-        element: <Login />,
-      },
-      {
-        path: "signup",
-        element: <Signup />,
-      },
-      {
-        path: "resetpassword",
-        element: <ForgotPassword />,
-      },
-      {
-        path: "dashboard",
-        element: <Dashboard />,
+        element: <PublicOnlyRoute />,
         children: [
           {
-            path: "new",
+            index: true,
+            element: <LandingPage />,
+          },
+          {
+            path: "login",
+            element: <Login />,
+          },
+          {
+            path: "signup",
+            element: <Signup />,
+          },
+          {
+            path: "resetpassword",
+            element: <ForgotPassword />,
+          },
+        ],
+      },
+
+      {
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: "dashboard",
+            element: <Dashboard />,
+          },
+          {
+            path: "dashboard/new",
             element: <NewProject />,
           },
           {
-            path: ":projectId",
+            path: "dashboard/:projectId",
             element: <Project />,
-            children: [
-              {
-                path: "settings",
-                element: <ProjectSettings />,
-              },
-            ],
+          },
+          {
+            path: "dashboard/:projectId/settings",
+            element: <ProjectSettings />,
           },
         ],
       },
