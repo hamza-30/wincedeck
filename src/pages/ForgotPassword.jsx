@@ -1,8 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useAuth } from "../hooks/useAuth";
 import HeroSection from "../components/HeroSection";
 import { toast } from "sonner";
+import { useAuthContext } from "../context/AuthContext/AuthContextProvider";
 
 function ForgotPassword() {
   const {
@@ -11,7 +11,7 @@ function ForgotPassword() {
     formState: { errors },
   } = useForm();
 
-  const { resetPassword, loading } = useAuth();
+  const { resetPassword, loading } = useAuthContext();
 
   const onSubmit = async (data) => {
     let result = await resetPassword(data.email);

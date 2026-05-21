@@ -4,13 +4,13 @@ import { FiUser } from "react-icons/fi";
 import { FiLogOut } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { useAuthContext } from "../context/AuthContext/AuthContextProvider";
 import { useNavigate } from "react-router-dom";
 import LogoutModal from "./LogoutModal";
 
 function Navbar() {
   let location = useLocation();
-  const { user, logout, loading } = useAuth();
+  const { user, logout, loading } = useAuthContext();
   const navigate = useNavigate();
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 

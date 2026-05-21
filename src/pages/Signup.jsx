@@ -4,15 +4,15 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEyeOffOutline } from "react-icons/io5";
-import { useAuth } from "../hooks/useAuth";
 import HeroSection from "../components/HeroSection";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { useAuthContext } from "../context/AuthContext/AuthContextProvider";
 
 function Signup() {
   const [seePassword, setSeePassword] = useState(false);
   const [seeConfirmPassword, setSeeConfirmPassword] = useState(false);
-  const { signup, loading } = useAuth();
+  const { signup, loading } = useAuthContext();
   const navigate = useNavigate();
 
   const {
