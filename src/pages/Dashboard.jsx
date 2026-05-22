@@ -2,8 +2,11 @@ import React from "react";
 import { GoPlus } from "react-icons/go";
 import { Link } from "react-router-dom";
 import ProjectCard from "../components/ProjectCard";
+import { useProjects } from "../hooks/useProjects";
 
 function Dashboard() {
+  const { loading, projects } = useProjects();
+
   return (
     <div className={`flex-1 px-5.5 w-full max-w-7xl mx-auto`}>
       <div className={`w-full flex flex-wrap gap-y-4 justify-between pt-13`}>
@@ -15,7 +18,8 @@ function Dashboard() {
           </div>
           <div className={`text-[1.77rem] font-extrabold`}>Your projects</div>
           <div className={`text-[#808080] text-sm`}>
-            {3} projects being monitored
+            {projects.length} {projects.length > 1 ? "projects" : "project"}{" "}
+            being monitored
           </div>
         </div>
 
@@ -31,9 +35,14 @@ function Dashboard() {
       <div
         className={`w-full mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4`}
       >
-        <ProjectCard />
-        <ProjectCard />
-        <ProjectCard />
+        {projects.length > 0 &&
+          projects.map((project) => (
+            <ProjectCard
+              key={project.id}
+              projectName={project.name}
+              projectId={project.id}
+            />
+          ))}
       </div>
     </div>
   );
