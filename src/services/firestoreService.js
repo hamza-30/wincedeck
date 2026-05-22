@@ -25,3 +25,5 @@ export const queryDocuments = (col, field, operator, value) =>
   getDocs(query(getCol(col), where(field, operator, value)));
 export const subscribeToCollection = (col, callback) =>
   onSnapshot(getCol(col), callback);
+export const subscribeToQuery = (query, callback) =>
+  onSnapshot(query, callback);
