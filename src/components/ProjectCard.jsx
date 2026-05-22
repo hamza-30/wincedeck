@@ -16,7 +16,7 @@ function ProjectCard({
     >
       <div className={`flex justify-between items-center`}>
         <span className={`text-sm font-extrabold tracking-tight`}>
-          GitAtlas Production
+          {projectName}
         </span>
         {status == "active" ? (
           <div
@@ -38,7 +38,7 @@ function ProjectCard({
       </div>
 
       <div className={`text-[10.5px] font-mono text-gray-500 mt-1`}>
-        ID: px_2881_z
+        ID: {projectId}
       </div>
 
       <div className={`mt-6 flex`}>
@@ -49,7 +49,7 @@ function ProjectCard({
             ERRORS TODAY
           </span>
           <span className={`text-[1.4rem] font-extrabold text-[#f97314]`}>
-            42
+            {errorsToday}
           </span>
         </div>
 
@@ -59,7 +59,7 @@ function ProjectCard({
           >
             LAST ERROR
           </span>
-          <span className={`text-sm font-mono`}>{`12s ago`}</span>
+          <span className={`text-sm font-mono`}>{lastErrorTime}</span>
         </div>
       </div>
 
