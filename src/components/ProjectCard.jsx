@@ -6,8 +6,8 @@ function ProjectCard({
   projectName,
   status,
   projectId,
-  errorsToday,
-  lastErrorTime,
+  errorsToday = 0,
+  lastErrorTime = "—",
 }) {
   return (
     <Link
