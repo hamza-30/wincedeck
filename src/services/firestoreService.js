@@ -5,6 +5,7 @@ import {
   getDoc,
   getDocs,
   addDoc,
+  setDoc,
   updateDoc,
   deleteDoc,
   query,
@@ -16,7 +17,7 @@ const getCol = (name) => collection(db, name);
 
 export const getDocument = (col, id) => getDoc(doc(db, col, id));
 export const getAllDocuments = (col) => getDocs(getCol(col));
-export const createDocument = (col, data) => addDoc(getCol(col), data);
+export const createDocument = (col, id, data) => setDoc(doc(db, col, id), data);
 export const updateDocument = (col, id, data) =>
   updateDoc(doc(db, col, id), data);
 export const deleteDocument = (col, id) => deleteDoc(doc(db, col, id));
