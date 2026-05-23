@@ -5,7 +5,7 @@ import ProjectCard from "../components/ProjectCard";
 import { useProjects } from "../hooks/useProjects";
 
 function Dashboard() {
-  const { loading, projects } = useProjects();
+  const { loading, projects, projectsLoading } = useProjects();
 
   return (
     <div className={`flex-1 px-5.5 w-full max-w-7xl mx-auto`}>
@@ -32,18 +32,26 @@ function Dashboard() {
         </Link>
       </div>
 
-      <div
-        className={`w-full mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4`}
-      >
-        {projects.length > 0 &&
-          projects.map((project) => (
-            <ProjectCard
-              key={project.id}
-              projectName={project.name}
-              projectId={project.id}
-            />
-          ))}
-      </div>
+      {projectsLoading ? (
+        <div className={`w-full flex justify-center mt-25`}>
+          <div
+            className={`h-8 w-8 rounded-full border-2 border-transparent border-t-[#f97314] border-b-[#f97314] animate-spin`}
+          ></div>
+        </div>
+      ) : (
+        <div
+          className={`w-full mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4`}
+        >
+          {projects.length > 0 &&
+            projects.map((project) => (
+              <ProjectCard
+                key={project.id}
+                projectName={project.name}
+                projectId={project.id}
+              />
+            ))}
+        </div>
+      )}
     </div>
   );
 }
