@@ -58,15 +58,15 @@ function Dashboard() {
 
       {!projectsLoading && projects.length == 0 && (
         <div className={`w-full`}>
-          <div class="border-2 border-dashed border-[#f97314] rounded-xl bg-[#ffffff] py-24 px-6 flex flex-col items-center justify-center text-center">
-            <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 mb-5">
+          <div className="border-2 border-dashed border-[#f97314] rounded-xl bg-[#ffffff] py-24 px-6 flex flex-col items-center justify-center text-center">
+            <div className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 mb-5">
               <LuPanelsTopLeft className={`text-gray-400 text-2xl`} />
             </div>
 
-            <h3 class="text-xl font-bold text-gray-900 mb-2">
+            <h3 className="text-xl font-bold text-gray-900 mb-2">
               No projects yet
             </h3>
-            <p class="text-gray-500 max-w-sm mb-8 text-sm">
+            <p className="text-gray-500 max-w-sm mb-8 text-sm">
               You haven't set up any projects for monitoring. Create your first
               project to start tracking errors.
             </p>
