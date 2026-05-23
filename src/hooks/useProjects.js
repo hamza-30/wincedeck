@@ -6,6 +6,7 @@ import { db } from "../config/firebase";
 
 export function useProjects() {
   const [loading, setLoading] = useState(false);
+  const [projectsLoading, setProjectsLoading] = useState(false);
   const [projects, setProjects] = useState([]);
   const { user } = useAuthContext();
 
@@ -13,11 +14,11 @@ export function useProjects() {
     if (!user) return;
 
     let q = query(collection(db, "projects"), where("userId", "==", user.uid));
-    setLoading(true);
+    setProjectsLoading(true);
 
     const unsubscribe = firestoreService.subscribeToQuery(q, (snapshot) => {
       setProjects(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-      setLoading(false);
+      setProjectsLoading(false);
     });
 
     return unsubscribe;
@@ -41,5 +42,5 @@ export function useProjects() {
     }
   };
 
-  return { loading, createProject, projects };
+  return { loading, projectsLoading, createProject, projects };
 }
