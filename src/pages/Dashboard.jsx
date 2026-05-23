@@ -10,7 +10,9 @@ function Dashboard() {
 
   return (
     <div className={`flex-1 px-5.5 w-full max-w-7xl mx-auto`}>
-      <div className={`w-full flex flex-wrap gap-y-4 justify-between pt-13`}>
+      <div
+        className={`w-full flex flex-col sm:flex-row flex-wrap gap-y-5 justify-between pt-13`}
+      >
         <div>
           <div
             className={`font-mono text-[#f97314] text-[0.7rem] tracking-widest mb-1`}
