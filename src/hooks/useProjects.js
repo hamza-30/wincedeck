@@ -25,7 +25,7 @@ export function useProjects() {
   }, []);
 
   const createProject = async (projectName) => {
-    let customId = `px_${1000 + Math.floor(Math.random() * 2000)}`;
+    let customId = `px_${Date.now().toString(36)}`;
 
     setLoading(true);
     try {
