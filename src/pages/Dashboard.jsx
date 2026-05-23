@@ -43,7 +43,7 @@ function Dashboard() {
         </div>
       ) : (
         <div
-          className={`w-full mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4`}
+          className={`w-full mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-5`}
         >
           {projects.length > 0 &&
             projects.map((project) => (
