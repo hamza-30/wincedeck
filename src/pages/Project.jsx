@@ -4,6 +4,7 @@ import { useProject } from "../hooks/useProject";
 import { LuCopy } from "react-icons/lu";
 import { MdOutlineSettings } from "react-icons/md";
 import { IoCheckmark } from "react-icons/io5";
+import ErrorStatsCard from "../components/ErrorStatsCard";
 
 function Project() {
   const { projectId } = useParams();
@@ -120,6 +121,19 @@ function Project() {
             </span>
             <span className="text-zinc-300 text-xs">&gt;&lt;/script&gt;</span>
           </div>
+        </div>
+
+        <div
+          className={`w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mt-8 rounded-xl border border-gray-200`}
+        >
+          <ErrorStatsCard title={"TOTAL ERRORS"} data={"12,842"} />
+          <ErrorStatsCard
+            title={"ERRORS TODAY"}
+            data={"42"}
+            textColor={"#f97314"}
+          />
+          <ErrorStatsCard title={"AFFECTED PAGES"} data={"18"} />
+          <ErrorStatsCard title={"LAST ERROR"} data={"12s ago"} />
         </div>
       </div>
     </>
