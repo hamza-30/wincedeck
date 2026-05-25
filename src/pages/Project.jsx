@@ -5,12 +5,21 @@ import { LuCopy } from "react-icons/lu";
 import { MdOutlineSettings } from "react-icons/md";
 import { IoCheckmark } from "react-icons/io5";
 import ErrorStatsCard from "../components/ErrorStatsCard";
+import { useErrors } from "../hooks/useErrors";
 
 function Project() {
   const { projectId } = useParams();
-  const { projectData, loading } = useProject(projectId);
   const [isSnippetCopied, setIsSnippetCopied] = useState(false);
   const [isButtonCopied, setIsButtonCopied] = useState(false);
+  const { projectData, loading } = useProject(projectId);
+  const {
+    errorData,
+    errorLoading,
+    totalErrors,
+    errorsToday,
+    numberOfAffectedPages,
+    lastErrorTime,
+  } = useErrors(projectId);
 
   const onCopyClick = async (setCopied) => {
     const scriptTag = `<script src="https://wincedeck.vercel.app/tracker.js?id=${projectId}"></script>`;
@@ -24,7 +33,7 @@ function Project() {
     }
   };
 
-  if (loading) {
+  if (loading || errorLoading) {
     return (
       <div className={`w-full flex-1 flex justify-center items-center`}>
         <div
@@ -126,14 +135,17 @@ function Project() {
         <div
           className={`w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mt-8 rounded-xl border border-gray-200`}
         >
-          <ErrorStatsCard title={"TOTAL ERRORS"} data={"12,842"} />
+          <ErrorStatsCard title={"TOTAL ERRORS"} data={totalErrors} />
           <ErrorStatsCard
             title={"ERRORS TODAY"}
-            data={"42"}
+            data={errorsToday}
             textColor={"#f97314"}
           />
-          <ErrorStatsCard title={"AFFECTED PAGES"} data={"18"} />
-          <ErrorStatsCard title={"LAST ERROR"} data={"12s ago"} />
+          <ErrorStatsCard
+            title={"AFFECTED PAGES"}
+            data={numberOfAffectedPages}
+          />
+          <ErrorStatsCard title={"LAST ERROR"} data={lastErrorTime} />
         </div>
       </div>
     </>
