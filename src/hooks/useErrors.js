@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import * as firestoreService from "../services/firestoreService";
 import { collection, query } from "firebase/firestore";
 import { db } from "../config/firebase";
-import { convertToUpdatedAgoTime, todayErrorFilter } from "../utils/dateUtils";
+import {
+  convertToUpdatedAgoTime,
+  last24HoursFilter,
+  todayErrorFilter,
+} from "../utils/dateUtils";
 
 export function useErrors(projectId) {
   const [errorData, setErrorData] = useState([]);
@@ -39,6 +43,10 @@ export function useErrors(projectId) {
       ? convertToUpdatedAgoTime(sortedErrorData[0].timestamp)
       : "-";
 
+  const twentyFourHoursData = sortedErrorData.filter((errorObj) =>
+    last24HoursFilter(errorObj.timestamp),
+  );
+
   return {
     errorData,
     errorLoading,
@@ -46,5 +54,6 @@ export function useErrors(projectId) {
     errorsToday,
     numberOfAffectedPages,
     lastErrorTime,
+    twentyFourHoursData,
   };
 }
