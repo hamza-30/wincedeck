@@ -6,6 +6,7 @@ import { MdOutlineSettings } from "react-icons/md";
 import { IoCheckmark } from "react-icons/io5";
 import ErrorStatsCard from "../components/ErrorStatsCard";
 import { useErrors } from "../hooks/useErrors";
+import ErrorBarChart from "../components/ErrorBarChart";
 
 function Project() {
   const { projectId } = useParams();
@@ -19,7 +20,10 @@ function Project() {
     errorsToday,
     numberOfAffectedPages,
     lastErrorTime,
+    twentyFourHoursData,
+    barChartData,
   } = useErrors(projectId);
+  console.log(errorData);
 
   const onCopyClick = async (setCopied) => {
     const scriptTag = `<script src="https://wincedeck.vercel.app/tracker.js?id=${projectId}"></script>`;
@@ -147,6 +151,11 @@ function Project() {
           />
           <ErrorStatsCard title={"LAST ERROR"} data={lastErrorTime} />
         </div>
+
+        <ErrorBarChart
+          last24HoursErrors={twentyFourHoursData.length}
+          barChartData={barChartData}
+        />
       </div>
     </>
   );
