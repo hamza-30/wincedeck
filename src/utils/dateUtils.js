@@ -9,6 +9,14 @@ export function todayErrorFilter(date) {
   );
 }
 
+export function last24HoursFilter(date) {
+  const now = Date.now();
+  const inputTime = new Date(date).getTime();
+  const twentyFourHoursAgo = now - 24 * 60 * 60 * 1000;
+
+  return inputTime >= twentyFourHoursAgo && inputTime <= now;
+}
+
 export function convertToUpdatedAgoTime(date) {
   let today = new Date();
   let repoDate = new Date(date);
