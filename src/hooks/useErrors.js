@@ -43,9 +43,24 @@ export function useErrors(projectId) {
       ? convertToUpdatedAgoTime(sortedErrorData[0].timestamp)
       : "-";
 
-  const twentyFourHoursData = sortedErrorData.filter((errorObj) =>
-    last24HoursFilter(errorObj.timestamp),
-  );
+  const twentyFourHoursData = sortedErrorData
+    .filter((errorObj) => last24HoursFilter(errorObj.timestamp))
+    .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+
+  const errorsFrequencyWithTime = {};
+
+  for (const error of twentyFourHoursData) {
+    let timestamp = error.timestamp.split("T");
+    let hour = timestamp[1].split(":")[0];
+    hour = `${hour} : 00`;
+
+    errorsFrequencyWithTime[hour] = (errorsFrequencyWithTime[hour] || 0) + 1;
+  }
+
+  const barChartData = Object.entries(errorsFrequencyWithTime).map((error) => ({
+    hour: error[0],
+    errorFreq: error[1],
+  }));
 
   return {
     errorData,
@@ -55,5 +70,6 @@ export function useErrors(projectId) {
     numberOfAffectedPages,
     lastErrorTime,
     twentyFourHoursData,
+    barChartData,
   };
 }
