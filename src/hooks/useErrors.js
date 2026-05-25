@@ -1,0 +1,50 @@
+import { useEffect, useState } from "react";
+import * as firestoreService from "../services/firestoreService";
+import { collection, query } from "firebase/firestore";
+import { db } from "../config/firebase";
+import { convertToUpdatedAgoTime, todayErrorFilter } from "../utils/dateUtils";
+
+export function useErrors(projectId) {
+  const [errorData, setErrorData] = useState([]);
+  const [errorLoading, setErrorLoading] = useState(false);
+
+  useEffect(() => {
+    if (!projectId) return;
+
+    const logsRef = collection(db, "errors", projectId, "logs");
+    const q = query(logsRef);
+    setErrorLoading(true);
+
+    const unsubscribe = firestoreService.subscribeToQuery(q, (snapshot) => {
+      const errors = snapshot.docs.map((doc) => doc.data());
+      setErrorData(errors);
+      setErrorLoading(false);
+    });
+
+    return unsubscribe;
+  }, [projectId]);
+
+  const sortedErrorData = errorData.sort(
+    (a, b) => new Date(b.timestamp) - new Date(a.timestamp),
+  );
+  const totalErrors = sortedErrorData.length;
+  const errorsToday = sortedErrorData.filter((errorObj) =>
+    todayErrorFilter(errorObj.timestamp),
+  ).length;
+  const numberOfAffectedPages = new Set(
+    sortedErrorData.map((errorObj) => errorObj.source),
+  ).size;
+  const lastErrorTime =
+    sortedErrorData.length > 0
+      ? convertToUpdatedAgoTime(sortedErrorData[0].timestamp)
+      : "-";
+
+  return {
+    errorData,
+    errorLoading,
+    totalErrors,
+    errorsToday,
+    numberOfAffectedPages,
+    lastErrorTime,
+  };
+}
