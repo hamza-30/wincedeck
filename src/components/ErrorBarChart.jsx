@@ -6,6 +6,7 @@ import {
   XAxis,
   YAxis,
   Tooltip,
+  CartesianGrid,
 } from "recharts";
 import { TfiBarChart } from "react-icons/tfi";
 
@@ -27,16 +28,27 @@ function ErrorBarChart({ last24HoursErrors, barChartData }) {
       {barChartData.length > 0 ? (
         <div className={`flex-1`}>
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={barChartData}>
+            <BarChart
+              data={barChartData}
+              margin={{ top: 0, right: 0, left: 3, bottom: 0 }}
+            >
+              <CartesianGrid
+                vertical={false}
+                stroke="#e5e7eb"
+                strokeDasharray="3 3"
+              />
               <XAxis
                 dataKey="hour"
                 className="font-mono text-gray-400"
                 tick={{ fill: "#9ca3af", fontSize: 12 }}
+                tickFormatter={(value) => value.split(" ")[0]}
                 tickLine={false}
                 axisLine={false}
               />
               <YAxis
                 className="font-mono text-gray-400"
+                width={30}
+                hide={true}
                 tick={{ fill: "#9ca3af", fontSize: 12 }}
                 tickLine={false}
                 axisLine={false}
