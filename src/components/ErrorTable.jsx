@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { CiSearch } from "react-icons/ci";
 import ErrorRowCard from "./ErrorRowCard";
+import { CiViewTable } from "react-icons/ci";
 
 const dateFilterList = ["Today", "Last 7 days", "Last 30 days", "All time"];
 
@@ -88,35 +89,44 @@ function ErrorTable({ errorData }) {
       </div>
 
       <div className="w-full overflow-x-auto">
-        <table className="w-full min-w-160 border-collapse align-middle">
-          <thead>
-            <tr className="h-9 text-[10.5px] bg-gray-50 text-gray-500 tracking-wider border-b border-gray-200">
-              <th className="text-left pl-5.5 font-medium">ERROR MESSAGE</th>
-              <th className="text-left pl-5.5 font-medium hidden md:table-cell">
-                PAGE URL
-              </th>
-              <th className="text-right pr-14 w-28 font-medium">COUNT</th>
-              <th className="text-left pl-5.5 w-28 font-medium">TIME</th>
-            </tr>
-          </thead>
+        {errorData.length > 0 ? (
+          <table className="w-full min-w-160 border-collapse align-middle">
+            <thead>
+              <tr className="h-9 text-[10.5px] bg-gray-50 text-gray-500 tracking-wider border-b border-gray-200">
+                <th className="text-left pl-5.5 font-medium">ERROR MESSAGE</th>
+                <th className="text-left pl-5.5 font-medium hidden md:table-cell">
+                  PAGE URL
+                </th>
+                <th className="text-right pr-14 w-28 font-medium">COUNT</th>
+                <th className="text-left pl-5.5 w-28 font-medium">TIME</th>
+              </tr>
+            </thead>
 
-          <tbody>
-            {errorData.length > 0 &&
-              errorData.map((err, index) => (
-                <ErrorRowCard
-                  key={index}
-                  message={err.message}
-                  source={err.source}
-                  pageUrl={err.pageUrl}
-                  frequency={err.count}
-                  timeAgo={err.timeAgo}
-                  severity={err.severity}
-                  stackTrace={err.stackTrace}
-                  capturedAt={err.capturedAt}
-                />
-              ))}
-          </tbody>
-        </table>
+            <tbody>
+              {errorData.length > 0 &&
+                errorData.map((err, index) => (
+                  <ErrorRowCard
+                    key={index}
+                    message={err.message}
+                    source={err.source}
+                    pageUrl={err.pageUrl}
+                    frequency={err.count}
+                    timeAgo={err.timeAgo}
+                    severity={err.severity}
+                    stackTrace={err.stackTrace}
+                    capturedAt={err.capturedAt}
+                  />
+                ))}
+            </tbody>
+          </table>
+        ) : (
+          <div className={`h-75 flex items-center justify-center`}>
+            <div className={`flex flex-col gap-y-0.5 items-center`}>
+              <CiViewTable className={`text-[2.3rem] text-[#f97314]`} />
+              <span className={`text-sm text-gray-600`}>No errors to show</span>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
