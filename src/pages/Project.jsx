@@ -56,16 +56,29 @@ function Project() {
               <span className={`text-[1.8rem] font-extrabold`}>
                 {projectData.name}
               </span>
-              <div
-                className={`flex items-center justify-center gap-x-1.5 bg-[#6cc7a82d] h-5 w-16 rounded-xl`}
-              >
-                <span
-                  className={`w-1.5 h-1.5 rounded-full bg-[#50ac8d]`}
-                ></span>
-                <span className={`text-[10px] text-[#50ac8d] font-bold`}>
-                  ACTIVE
-                </span>
-              </div>
+              {twentyFourHoursData.length > 0 ? (
+                <div
+                  className={`flex items-center justify-center gap-x-1.5 bg-[#6cc7a82d] h-5 w-16 rounded-xl`}
+                >
+                  <span
+                    className={`w-1.5 h-1.5 rounded-full bg-[#50ac8d]`}
+                  ></span>
+                  <span className={`text-[10px] text-[#50ac8d] font-bold`}>
+                    ACTIVE
+                  </span>
+                </div>
+              ) : (
+                <div
+                  className={`flex items-center justify-center gap-x-1.5 bg-gray-100 h-5 w-13 rounded-xl`}
+                >
+                  <span
+                    className={`w-1.5 h-1.5 rounded-full bg-gray-500`}
+                  ></span>
+                  <span className={`text-[10px] text-gray-500 font-bold`}>
+                    IDLE
+                  </span>
+                </div>
+              )}
             </div>
 
             <div className={`text-[11px] font-mono text-gray-500`}>
