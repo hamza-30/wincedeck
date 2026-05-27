@@ -64,8 +64,8 @@ function ErrorBarChart({ last24HoursErrors, barChartData }) {
                 itemStyle={{ color: "#6b7280" }}
                 labelStyle={{ color: "#6b7280" }}
                 cursor={{ fill: "#f3f4f6" }}
-                formatter={(value) => [`${value} errors`, ""]} // Appends "errors" to the value and removes the dataKey name
-                separator="" // Removes the default colon (:) separator
+                formatter={(value) => [`${value} errors`, ""]}
+                separator=""
               />
               <Bar dataKey="errorFreq" fill="#f97314" radius={[4, 4, 0, 0]} />
             </BarChart>
