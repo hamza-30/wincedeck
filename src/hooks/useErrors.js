@@ -36,7 +36,7 @@ export function useErrors(projectId) {
     todayErrorFilter(errorObj.timestamp),
   ).length;
   const numberOfAffectedPages = new Set(
-    sortedErrorData.map((errorObj) => errorObj.source),
+    sortedErrorData.map((errorObj) => errorObj.url),
   ).size;
   const lastErrorTime =
     sortedErrorData.length > 0
@@ -62,8 +62,15 @@ export function useErrors(projectId) {
     errorFreq: error[1],
   }));
 
+  const errorFrequency = {};
+
+  for (const error of errorData) {
+    errorFrequency[error.message] = (errorFrequency[error.message] || 0) + 1;
+  }
+
   return {
     errorData,
+    sortedErrorData,
     errorLoading,
     totalErrors,
     errorsToday,
@@ -71,5 +78,6 @@ export function useErrors(projectId) {
     lastErrorTime,
     twentyFourHoursData,
     barChartData,
+    errorFrequency,
   };
 }
