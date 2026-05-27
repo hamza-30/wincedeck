@@ -12,6 +12,34 @@ function ErrorTable({ errorData }) {
   const [searchError, setSearchError] = useState("");
   const [searchUrl, setSearchUrl] = useState("");
 
+  const filteredErrors = errorData.filter((err) => {
+    const matchesSearch =
+      !searchError ||
+      err.message.toLowerCase().includes(searchError.toLowerCase());
+
+    const matchesUrl =
+      !searchUrl || err.pageUrl.toLowerCase().includes(searchUrl.toLowerCase());
+
+    const matchesDate =
+      dateFilter === "All time" ||
+      (() => {
+        const errorDate = new Date(err.lastSeen);
+        const now = new Date();
+
+        if (dateFilter === "Today") {
+          return errorDate.toDateString() === now.toDateString();
+        }
+        if (dateFilter === "Last 7 days") {
+          return errorDate >= new Date(now - 7 * 24 * 60 * 60 * 1000);
+        }
+        if (dateFilter === "Last 30 days") {
+          return errorDate >= new Date(now - 30 * 24 * 60 * 60 * 1000);
+        }
+      })();
+
+    return matchesSearch && matchesUrl && matchesDate;
+  });
+
   return (
     <div
       className={`w-full h-fit border border-gray-200 rounded-xl mb-10 overflow-hidden`}
@@ -24,7 +52,7 @@ function ErrorTable({ errorData }) {
           <div className={`flex items-center gap-x-1.5 text-gray-500`}>
             <div className={`h-1.5 w-1.5 rounded-full bg-green-500`}></div>
             <span className={`text-xs`}>
-              Streaming live - {errorData.length} shown
+              Streaming live - {filteredErrors.length} shown
             </span>
           </div>
         </div>
@@ -89,7 +117,7 @@ function ErrorTable({ errorData }) {
       </div>
 
       <div className="w-full overflow-x-auto">
-        {errorData.length > 0 ? (
+        {filteredErrors.length > 0 ? (
           <table className="w-full min-w-160 border-collapse align-middle">
             <thead>
               <tr className="h-9 text-[10.5px] bg-gray-50 text-gray-500 tracking-wider border-b border-gray-200">
@@ -103,8 +131,8 @@ function ErrorTable({ errorData }) {
             </thead>
 
             <tbody>
-              {errorData.length > 0 &&
-                errorData.map((err, index) => (
+              {filteredErrors.length > 0 &&
+                filteredErrors.map((err, index) => (
                   <ErrorRowCard
                     key={index}
                     message={err.message}
