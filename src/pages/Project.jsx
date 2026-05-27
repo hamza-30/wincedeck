@@ -7,6 +7,7 @@ import { IoCheckmark } from "react-icons/io5";
 import ErrorStatsCard from "../components/ErrorStatsCard";
 import { useErrors } from "../hooks/useErrors";
 import ErrorBarChart from "../components/ErrorBarChart";
+import ErrorTable from "../components/ErrorTable";
 
 function Project() {
   const { projectId } = useParams();
@@ -14,7 +15,6 @@ function Project() {
   const [isButtonCopied, setIsButtonCopied] = useState(false);
   const { projectData, loading } = useProject(projectId);
   const {
-    errorData,
     errorLoading,
     totalErrors,
     errorsToday,
@@ -22,8 +22,8 @@ function Project() {
     lastErrorTime,
     twentyFourHoursData,
     barChartData,
+    groupedErrors,
   } = useErrors(projectId);
-  console.log(errorData);
 
   const onCopyClick = async (setCopied) => {
     const scriptTag = `<script src="https://wincedeck.vercel.app/tracker.js?id=${projectId}"></script>`;
@@ -156,6 +156,8 @@ function Project() {
           last24HoursErrors={twentyFourHoursData.length}
           barChartData={barChartData}
         />
+
+        <ErrorTable errorData={groupedErrors} />
       </div>
     </>
   );
