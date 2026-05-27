@@ -1,14 +1,12 @@
 import React from "react";
 import { HiMiniArrowUpRight } from "react-icons/hi2";
 import { Link } from "react-router-dom";
+import { useProjectStats } from "../hooks/useProjectStats";
 
-function ProjectCard({
-  projectName,
-  status,
-  projectId,
-  errorsToday = 0,
-  lastErrorTime = "—",
-}) {
+function ProjectCard({ projectName, projectId }) {
+  const { errorsToday, lastErrorTime, errorStatsLoading } =
+    useProjectStats(projectId);
+
   return (
     <Link
       to={`/dashboard/${projectId}`}
@@ -18,7 +16,7 @@ function ProjectCard({
         <span className={`text-sm font-extrabold tracking-tight`}>
           {projectName}
         </span>
-        {status == "active" ? (
+        {errorsToday > 0 ? (
           <div
             className={`w-fit flex items-center gap-x-1.5 bg-[#6cc7a82d] px-2 py-0.5 rounded-xl`}
           >
