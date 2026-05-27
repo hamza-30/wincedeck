@@ -75,7 +75,7 @@ function ErrorBarChart({ last24HoursErrors, barChartData }) {
         <div className={`flex-1 flex justify-center items-center`}>
           <div className={`flex flex-col gap-y-1.5 items-center mb-15`}>
             <TfiBarChart className={`text-3xl text-[#f97314]`} />
-            <span className={`text-sm text-gray-500`}>No errors to show</span>
+            <span className={`text-sm text-gray-500`}>No data available</span>
           </div>
         </div>
       )}
