@@ -7,6 +7,12 @@ import {
   last24HoursFilter,
   todayErrorFilter,
 } from "../utils/dateUtils";
+import {
+  getPagePath,
+  getSource,
+  getSeverity,
+  getClockTime,
+} from "../utils/errorUtils";
 
 export function useErrors(projectId) {
   const [errorData, setErrorData] = useState([]);
@@ -28,7 +34,7 @@ export function useErrors(projectId) {
     return unsubscribe;
   }, [projectId]);
 
-  const sortedErrorData = errorData.sort(
+  const sortedErrorData = [...errorData].sort(
     (a, b) => new Date(b.timestamp) - new Date(a.timestamp),
   );
   const totalErrors = sortedErrorData.length;
@@ -62,15 +68,38 @@ export function useErrors(projectId) {
     errorFreq: error[1],
   }));
 
-  const errorFrequency = {};
+  const groupedErrors = Object.values(
+    errorData.reduce((acc, err) => {
+      const key = `${err.message}__${err.source}`;
 
-  for (const error of errorData) {
-    errorFrequency[error.message] = (errorFrequency[error.message] || 0) + 1;
-  }
+      if (!acc[key]) {
+        acc[key] = {
+          message: err.message,
+          source: getSource(err.stack),
+          pageUrl: getPagePath(err.url),
+          severity: getSeverity(err.message),
+          stackTrace: err.stack,
+          capturedAt: getClockTime(err.timestamp),
+          timeAgo: convertToUpdatedAgoTime(err.timestamp),
+          count: 0,
+          lastSeen: err.timestamp,
+        };
+      }
+
+      acc[key].count++;
+
+      if (err.timestamp > acc[key].lastSeen) {
+        acc[key].lastSeen = err.timestamp;
+        acc[key].timeAgo = convertToUpdatedAgoTime(err.timestamp);
+        acc[key].capturedAt = getClockTime(err.timestamp);
+      }
+
+      return acc;
+    }, {}),
+  ).sort((a, b) => b.count - a.count);
 
   return {
     errorData,
-    sortedErrorData,
     errorLoading,
     totalErrors,
     errorsToday,
@@ -78,6 +107,6 @@ export function useErrors(projectId) {
     lastErrorTime,
     twentyFourHoursData,
     barChartData,
-    errorFrequency,
+    groupedErrors,
   };
 }
