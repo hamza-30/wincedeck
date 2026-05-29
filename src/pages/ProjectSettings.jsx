@@ -27,7 +27,7 @@ function ProjectSettings() {
   const navigate = useNavigate();
 
   const onCopyClick = async (setCopied) => {
-    const scriptTag = `<script src="https://wincedeck.vercel.app/tracker.js?id="></script>`;
+    const scriptTag = `<script src="https://wincedeck.vercel.app/tracker.js?id=${projectId}"></script>`;
 
     try {
       await navigator.clipboard.writeText(scriptTag);
