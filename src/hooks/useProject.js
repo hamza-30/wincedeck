@@ -4,6 +4,7 @@ import * as firestoreService from "../services/firestoreService";
 export function useProject(projectId) {
   const [projectData, setProjectData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [nameChangeLoading, setNameChangeLoading] = useState(false);
 
   useEffect(() => {
     if (!projectId) return;
@@ -27,5 +28,19 @@ export function useProject(projectId) {
     fetchProject();
   }, [projectId]);
 
-  return { projectData, loading };
+  const updateProjectName = async (projectName) => {
+    setNameChangeLoading(true);
+    try {
+      await firestoreService.updateDocument("projects", projectId, {
+        name: projectName,
+      });
+      return { success: true };
+    } catch (err) {
+      return { success: false, error: err.message };
+    } finally {
+      setNameChangeLoading(false);
+    }
+  };
+
+  return { projectData, loading, updateProjectName, nameChangeLoading };
 }
