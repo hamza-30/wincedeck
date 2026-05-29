@@ -38,7 +38,7 @@ function Navbar() {
           <div className={`flex gap-x-5`}>
             <div className={`gap-x-1 items-center hidden sm:flex`}>
               <FiUser className={`text-lg`} />
-              <span className={`text-xs font-medium`}>hamza@windeck.com</span>
+              <span className={`text-xs font-medium`}>{user.email}</span>
             </div>
 
             <button
