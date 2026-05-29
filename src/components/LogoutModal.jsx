@@ -28,7 +28,7 @@ function LogoutModal({ isModalOpen, setIsModalOpen, logout, loading }) {
             Cancel
           </button>
           <button
-            className={`bg-[#fc750b] hover:bg-[#e46205] active:bg-[#e46205]  py-1.5 w-[5.5rem] rounded-lg text-white flex items-center justify-center gap-x-1.5`}
+            className={`bg-[#fc750b] hover:bg-[#e46205] active:bg-[#e46205]  py-1.5 w-22 rounded-lg text-white flex items-center justify-center gap-x-1.5`}
             onClick={handleLogout}
           >
             {loading ? (
