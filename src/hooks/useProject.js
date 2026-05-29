@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import * as firestoreService from "../services/firestoreService";
+import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
+import { db } from "../config/firebase";
 
 export function useProject(projectId) {
   const [projectData, setProjectData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [nameChangeLoading, setNameChangeLoading] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
   useEffect(() => {
     if (!projectId) return;
@@ -42,5 +45,36 @@ export function useProject(projectId) {
     }
   };
 
-  return { projectData, loading, updateProjectName, nameChangeLoading };
+  const deleteProject = async () => {
+    setDeleteLoading(true);
+    try {
+      const logsRef = collection(db, "errors", projectId, "logs");
+      const logsSnapshot = await getDocs(logsRef);
+
+      await Promise.all(
+        logsSnapshot.docs.map((document) =>
+          deleteDoc(doc(db, "errors", projectId, "logs", document.id)),
+        ),
+      );
+
+      await firestoreService.deleteDocument("errors", projectId);
+
+      await firestoreService.deleteDocument("projects", projectId);
+
+      return { success: true };
+    } catch (err) {
+      return { success: false, error: err.message };
+    } finally {
+      setDeleteLoading(false);
+    }
+  };
+
+  return {
+    projectData,
+    loading,
+    updateProjectName,
+    nameChangeLoading,
+    deleteProject,
+    deleteLoading,
+  };
 }
