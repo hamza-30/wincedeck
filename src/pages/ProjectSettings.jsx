@@ -78,7 +78,7 @@ function ProjectSettings() {
   }
 
   return (
-    <div className={`mt-10 mx-auto h-fit w-full max-w-[45.7rem] px-5.5`}>
+    <div className={`mt-10 mx-auto h-fit w-full max-w-[47rem] px-5.5`}>
       <div
         className={`text-[11px] font-mono tracking-widest text-[#f97314] mb-1`}
       >
@@ -158,6 +158,7 @@ function ProjectSettings() {
         <input
           type="text"
           value={projectNewName}
+          placeholder={projectData.name}
           id="projectName"
           className={`outline-none border border-gray-200 h-10 rounded-lg font-mono px-3 text-sm focus:border-transparent focus:ring focus:ring-[#f97314] transition-all ease-in-out duration-150`}
           onChange={(e) => setProjectNewName(e.target.value)}
