@@ -1,18 +1,30 @@
 import React, { useState } from "react";
 import { LuCopy } from "react-icons/lu";
 import { IoCheckmark } from "react-icons/io5";
+import { BiError } from "react-icons/bi";
+import { RiDeleteBinLine } from "react-icons/ri";
 import { useProject } from "../hooks/useProject";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ProjectNameChangeModal from "../components/ProjectNameChangeModal";
 import { toast } from "sonner";
+import ProjectDeleteModal from "../components/ProjectDeleteModal";
 
 function ProjectSettings() {
   const [isSnippetCopied, setIsSnippetCopied] = useState(false);
   const { projectId } = useParams();
-  const { projectData, loading, updateProjectName, nameChangeLoading } =
-    useProject(projectId);
+  const {
+    projectData,
+    loading,
+    updateProjectName,
+    nameChangeLoading,
+    deleteProject,
+    deleteLoading,
+  } = useProject(projectId);
   const [projectNewName, setProjectNewName] = useState("");
   const [nameChangeModalOpen, setNameChangeModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [projectName, setProjectName] = useState("");
+  const navigate = useNavigate();
 
   const onCopyClick = async (setCopied) => {
     const scriptTag = `<script src="https://wincedeck.vercel.app/tracker.js?id="></script>`;
@@ -36,6 +48,21 @@ function ProjectSettings() {
         toast.success("Project name changed!");
       } else {
         toast.error("Failed to change project name");
+      }
+    }
+  };
+
+  const onDeleteClick = async () => {
+    setIsDeleteModalOpen(false);
+
+    if (projectName == projectData.name) {
+      const result = await deleteProject();
+
+      if (result.success) {
+        navigate("/dashboard");
+        toast.success("Project deleted successfully");
+      } else {
+        toast.error("Failed to delete project");
       }
     }
   };
@@ -136,7 +163,7 @@ function ProjectSettings() {
           onChange={(e) => setProjectNewName(e.target.value)}
         />
         <button
-          className={`bg-gray-950 hover:bg-[#000000d6] w-28 h-9 flex justify-center items-center text-white text-xs font-semibold rounded-[5px] mt-2 ml-auto`}
+          className={`bg-gray-950 hover:bg-[#000000d6] active:bg-[#000000d6] w-28 h-9 flex justify-center items-center text-white text-xs font-semibold rounded-[5px] mt-2 ml-auto`}
           onClick={() => setNameChangeModalOpen(true)}
         >
           {nameChangeLoading ? (
@@ -164,8 +191,45 @@ function ProjectSettings() {
       </div>
 
       <div
-        className={`border border-red-400 bg-red-50 h-40 rounded-[0.6rem] mt-4 mb-10`}
-      ></div>
+        className={`border border-red-400 bg-red-50 h-fit rounded-[0.6rem] mt-4 mb-10 flex justify-between flex-col sm:flex-row p-5 gap-x-3 gap-y-4`}
+      >
+        <div className={`flex gap-x-2 min-w-0`}>
+          <BiError className={`text-2xl text-red-500 shrink-0`} />
+          <div className={`flex flex-col gap-y-1`}>
+            <span className={`text-sm font-semibold`}>Delete this project</span>
+            <span className={`text-[12px] text-gray-600`}>
+              Permanently delete{" "}
+              <span className={`font-semibold`}>{projectData.name}</span> and
+              every captured error. This cannot be undone.
+            </span>
+          </div>
+        </div>
+        <button
+          className={`bg-red-600 hover:bg-red-500 active:bg-red-500 text-white w-31 h-9 rounded-[5px] flex gap-x-1 items-center justify-center shrink-0`}
+          onClick={() => setIsDeleteModalOpen(true)}
+        >
+          {deleteLoading ? (
+            <span
+              className={`border-[2.3px] border-transparent border-t-white border-b-white h-4.5 w-4.5 rounded-full inline-block animate-spin`}
+            ></span>
+          ) : (
+            <>
+              <RiDeleteBinLine />
+              <span className={`text-xs font-semibold`}>Delete project</span>
+            </>
+          )}
+        </button>
+      </div>
+
+      {isDeleteModalOpen && (
+        <ProjectDeleteModal
+          setIsModalOpen={setIsDeleteModalOpen}
+          projectData={projectData}
+          projectName={projectName}
+          setProjectName={setProjectName}
+          onDeleteClick={onDeleteClick}
+        />
+      )}
     </div>
   );
 }
