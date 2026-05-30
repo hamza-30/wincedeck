@@ -52,8 +52,10 @@ function ProjectDeleteModal({
             Cancel
           </button>
           <button
-            className={`bg-red-500 hover:bg-red-400 active:bg-red-400  py-1.5 w-26 rounded-lg text-white flex items-center justify-center gap-x-1.5`}
+            className={`hover:bg-red-400 active:bg-red-400  py-1.5 w-26 rounded-lg text-white flex items-center justify-center gap-x-1.5
+              ${projectName !== projectData.name ? "bg-red-400" : "bg-red-500"}`}
             onClick={onDeleteClick}
+            disabled={projectName !== projectData.name}
           >
             Delete forever
           </button>
