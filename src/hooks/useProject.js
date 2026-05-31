@@ -37,6 +37,7 @@ export function useProject(projectId) {
       await firestoreService.updateDocument("projects", projectId, {
         name: projectName,
       });
+      setProjectData((prev) => ({ ...prev, name: projectName }));
       return { success: true };
     } catch (err) {
       return { success: false, error: err.message };
