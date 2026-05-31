@@ -47,7 +47,10 @@ function ProjectDeleteModal({
         >
           <button
             className={`border border-gray-200 hover:bg-gray-200 active:bg-gray-200 py-1.5 w-[4.3rem] rounded-lg`}
-            onClick={() => setIsModalOpen(false)}
+            onClick={() => {
+              setIsModalOpen(false);
+              setProjectName("");
+            }}
           >
             Cancel
           </button>
