@@ -66,7 +66,7 @@ function Navbar() {
               </Link>
               <Link
                 to={"signup"}
-                className={`text-[11.8px] text-white bg-black px-3 py-[4.5px] rounded-[0.4rem] active:scale-95 transition-transform duration-100 ease-in-out text-center`}
+                className={`text-[11.8px] text-white bg-black px-3 py-1.25 rounded-[0.4rem] active:scale-95 transition-transform duration-100 ease-in-out text-center`}
               >
                 Get Started
               </Link>
