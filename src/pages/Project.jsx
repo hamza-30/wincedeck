@@ -8,6 +8,7 @@ import ErrorStatsCard from "../components/ErrorStatsCard";
 import { useErrors } from "../hooks/useErrors";
 import ErrorBarChart from "../components/ErrorBarChart";
 import ErrorTable from "../components/ErrorTable";
+import PageTransition from "../components/PageTransition";
 
 function Project() {
   const { projectId } = useParams();
@@ -49,129 +50,133 @@ function Project() {
 
   return (
     <>
-      <div className={`flex-1 px-5.5 w-full max-w-7xl mx-auto`}>
-        <div className={`w-full flex justify-between pt-10 flex-wrap gap-y-4`}>
-          <div className={`flex flex-col gap-y-0.5`}>
-            <div className={`flex gap-x-3 items-center`}>
-              <span className={`text-[1.8rem] font-extrabold`}>
-                {projectData.name}
-              </span>
-              {twentyFourHoursData.length > 0 ? (
-                <div
-                  className={`flex items-center justify-center gap-x-1.5 bg-[#6cc7a82d] h-5 w-16 rounded-xl`}
-                >
-                  <span
-                    className={`w-1.5 h-1.5 rounded-full bg-[#50ac8d]`}
-                  ></span>
-                  <span className={`text-[10px] text-[#50ac8d] font-bold`}>
-                    ACTIVE
-                  </span>
-                </div>
-              ) : (
-                <div
-                  className={`flex items-center justify-center gap-x-1.5 bg-gray-100 h-5 w-13 rounded-xl`}
-                >
-                  <span
-                    className={`w-1.5 h-1.5 rounded-full bg-gray-500`}
-                  ></span>
-                  <span className={`text-[10px] text-gray-500 font-bold`}>
-                    IDLE
-                  </span>
-                </div>
-              )}
+      <PageTransition>
+        <div className={`flex-1 px-5.5 w-full max-w-7xl mx-auto`}>
+          <div
+            className={`w-full flex justify-between pt-10 flex-wrap gap-y-4`}
+          >
+            <div className={`flex flex-col gap-y-0.5`}>
+              <div className={`flex gap-x-3 items-center`}>
+                <span className={`text-[1.8rem] font-extrabold`}>
+                  {projectData.name}
+                </span>
+                {twentyFourHoursData.length > 0 ? (
+                  <div
+                    className={`flex items-center justify-center gap-x-1.5 bg-[#6cc7a82d] h-5 w-16 rounded-xl`}
+                  >
+                    <span
+                      className={`w-1.5 h-1.5 rounded-full bg-[#50ac8d]`}
+                    ></span>
+                    <span className={`text-[10px] text-[#50ac8d] font-bold`}>
+                      ACTIVE
+                    </span>
+                  </div>
+                ) : (
+                  <div
+                    className={`flex items-center justify-center gap-x-1.5 bg-gray-100 h-5 w-13 rounded-xl`}
+                  >
+                    <span
+                      className={`w-1.5 h-1.5 rounded-full bg-gray-500`}
+                    ></span>
+                    <span className={`text-[10px] text-gray-500 font-bold`}>
+                      IDLE
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              <div className={`text-[11px] font-mono text-gray-500`}>
+                ID: {projectId}
+              </div>
             </div>
 
-            <div className={`text-[11px] font-mono text-gray-500`}>
-              ID: {projectId}
-            </div>
-          </div>
-
-          <div className={`flex gap-x-2`}>
-            <button
-              className={`flex h-fit w-fit items-center gap-x-1.5 text-[#414141] border border-gray-200 rounded-md py-2.5 px-3 hover:bg-gray-100 active:bg-gray-100`}
-              onClick={() => onCopyClick(setIsButtonCopied)}
-            >
-              {isButtonCopied ? <IoCheckmark /> : <LuCopy />}
-              <span className={`text-xs font-bold`}>
-                {isButtonCopied ? "Copied" : "Copy Script Tag"}
-              </span>
-            </button>
-            <Link
-              to={`/dashboard/${projectId}/settings`}
-              className={`flex h-fit w-fit items-center gap-x-1.5 text-[#414141] border border-gray-200 rounded-md py-2.5 px-3 hover:bg-gray-100 active:bg-gray-100`}
-            >
-              <MdOutlineSettings />
-              <span className={`text-xs font-bold`}>Settings</span>
-            </Link>
-          </div>
-        </div>
-
-        <div
-          className={`w-full flex flex-col gap-y-3 py-4 px-3.5 border border-[#f973147c] bg-[#f973140b] mt-8 rounded-[0.6rem]`}
-        >
-          <div className={`w-full flex items-center justify-between`}>
-            <div className={`flex items-center gap-x-2`}>
-              <span
-                className={`text-[10px] tracking-widest text-[#f97314] font-extrabold`}
+            <div className={`flex gap-x-2`}>
+              <button
+                className={`flex h-fit w-fit items-center gap-x-1.5 text-[#414141] border border-gray-200 rounded-md py-2.5 px-3 hover:bg-gray-100 active:bg-gray-100`}
+                onClick={() => onCopyClick(setIsButtonCopied)}
               >
-                INTEGRATION SCRIPT
-              </span>
-              <span className={`text-[10px] text-gray-500`}>
-                Add to your {"<head>"} tag
-              </span>
+                {isButtonCopied ? <IoCheckmark /> : <LuCopy />}
+                <span className={`text-xs font-bold`}>
+                  {isButtonCopied ? "Copied" : "Copy Script Tag"}
+                </span>
+              </button>
+              <Link
+                to={`/dashboard/${projectId}/settings`}
+                className={`flex h-fit w-fit items-center gap-x-1.5 text-[#414141] border border-gray-200 rounded-md py-2.5 px-3 hover:bg-gray-100 active:bg-gray-100`}
+              >
+                <MdOutlineSettings />
+                <span className={`text-xs font-bold`}>Settings</span>
+              </Link>
+            </div>
+          </div>
+
+          <div
+            className={`w-full flex flex-col gap-y-3 py-4 px-3.5 border border-[#f973147c] bg-[#f973140b] mt-8 rounded-[0.6rem]`}
+          >
+            <div className={`w-full flex items-center justify-between`}>
+              <div className={`flex items-center gap-x-2`}>
+                <span
+                  className={`text-[10px] tracking-widest text-[#f97314] font-extrabold`}
+                >
+                  INTEGRATION SCRIPT
+                </span>
+                <span className={`text-[10px] text-gray-500`}>
+                  Add to your {"<head>"} tag
+                </span>
+              </div>
+
+              <button
+                className={`flex items-center gap-x-1.5 text-[#f97314] cursor-pointer`}
+                onClick={() => onCopyClick(setIsSnippetCopied)}
+              >
+                {isSnippetCopied ? (
+                  <IoCheckmark className={`text-sm`} />
+                ) : (
+                  <LuCopy className={`text-sm`} />
+                )}
+                <span
+                  className={`text-[9.6px] font-mono tracking-wide font-extrabold hidden sm:inline-block`}
+                >
+                  {isSnippetCopied ? "COPIED" : "COPY SNIPPET"}
+                </span>
+              </button>
             </div>
 
-            <button
-              className={`flex items-center gap-x-1.5 text-[#f97314] cursor-pointer`}
-              onClick={() => onCopyClick(setIsSnippetCopied)}
-            >
-              {isSnippetCopied ? (
-                <IoCheckmark className={`text-sm`} />
-              ) : (
-                <LuCopy className={`text-sm`} />
-              )}
-              <span
-                className={`text-[9.6px] font-mono tracking-wide font-extrabold hidden sm:inline-block`}
-              >
-                {isSnippetCopied ? "COPIED" : "COPY SNIPPET"}
+            <div className="bg-black flex items-center pl-3 text-white w-full h-11 rounded-sm overflow-hidden font-mono text-sm text-nowrap">
+              <span className={`text-zinc-300 text-xs`}>&lt;script&nbsp;</span>
+              <span className={`text-emerald-400 text-xs`}>src</span>
+              <span className={`text-xs`}>=</span>
+              <span className={`text-orange-300 text-xs`}>
+                {`"https://wincedeck.vercel.app/tracker.js?id=${projectId}"`}
               </span>
-            </button>
+              <span className="text-zinc-300 text-xs">&gt;&lt;/script&gt;</span>
+            </div>
           </div>
 
-          <div className="bg-black flex items-center pl-3 text-white w-full h-11 rounded-sm overflow-hidden font-mono text-sm text-nowrap">
-            <span className={`text-zinc-300 text-xs`}>&lt;script&nbsp;</span>
-            <span className={`text-emerald-400 text-xs`}>src</span>
-            <span className={`text-xs`}>=</span>
-            <span className={`text-orange-300 text-xs`}>
-              {`"https://wincedeck.vercel.app/tracker.js?id=${projectId}"`}
-            </span>
-            <span className="text-zinc-300 text-xs">&gt;&lt;/script&gt;</span>
+          <div
+            className={`w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mt-8 rounded-xl border border-gray-200`}
+          >
+            <ErrorStatsCard title={"TOTAL ERRORS"} data={totalErrors} />
+            <ErrorStatsCard
+              title={"ERRORS TODAY"}
+              data={errorsToday}
+              textColor={"#f97314"}
+            />
+            <ErrorStatsCard
+              title={"AFFECTED PAGES"}
+              data={numberOfAffectedPages}
+            />
+            <ErrorStatsCard title={"LAST ERROR"} data={lastErrorTime} />
           </div>
-        </div>
 
-        <div
-          className={`w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mt-8 rounded-xl border border-gray-200`}
-        >
-          <ErrorStatsCard title={"TOTAL ERRORS"} data={totalErrors} />
-          <ErrorStatsCard
-            title={"ERRORS TODAY"}
-            data={errorsToday}
-            textColor={"#f97314"}
+          <ErrorBarChart
+            last24HoursErrors={twentyFourHoursData.length}
+            barChartData={barChartData}
           />
-          <ErrorStatsCard
-            title={"AFFECTED PAGES"}
-            data={numberOfAffectedPages}
-          />
-          <ErrorStatsCard title={"LAST ERROR"} data={lastErrorTime} />
+
+          <ErrorTable errorData={groupedErrors} />
         </div>
-
-        <ErrorBarChart
-          last24HoursErrors={twentyFourHoursData.length}
-          barChartData={barChartData}
-        />
-
-        <ErrorTable errorData={groupedErrors} />
-      </div>
+      </PageTransition>
     </>
   );
 }
