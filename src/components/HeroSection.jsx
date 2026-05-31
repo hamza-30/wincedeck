@@ -3,9 +3,9 @@ import React from "react";
 function HeroSection() {
   return (
     <div className="w-full h-full flex justify-center items-center relative">
-      <div className="absolute inset-0 bg-[#fafafa] bg-[linear-gradient(#f1f1f1_1px,transparent_1px),linear-gradient(90deg,#f1f1f1_1px,transparent_1px)] bg-[length:28px_28px]"></div>
+      <div className="absolute inset-0 bg-[#fafafa] bg-[linear-gradient(#f1f1f1_1px,transparent_1px),linear-gradient(90deg,#f1f1f1_1px,transparent_1px)] bg-size-[28px_28px]"></div>
 
-      <div className={`z-10 w-[28.5rem] flex flex-col gap-y-5.5`}>
+      <div className={`z-10 w-114 flex flex-col gap-y-5.5`}>
         <div className={`flex items-center gap-x-2 `}>
           <div className={`h-1.5 w-1.5 rounded-full bg-green-400`}></div>
           <span
@@ -65,8 +65,8 @@ function HeroSection() {
         </div>
 
         <div className={`text-[12px] text-gray-600`}>
-          Every exception captured, deduplicated, and ranked by frequency. No
-          noise, just signal.
+          Every exception captured, deduplicated, and sorted by latest
+          occurrence. No noise, just signal.
         </div>
       </div>
     </div>
