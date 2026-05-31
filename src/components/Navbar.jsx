@@ -24,55 +24,56 @@ function Navbar() {
 
   return (
     <>
-      <div
-        className={`w-full h-13 mx-auto flex justify-between items-center px-5.5 max-w-7xl`}
-      >
-        <img
-          src={logo}
-          alt="logo"
-          className={`w-fit h-6.75`}
-          onClick={handleLogoClick}
-        />
+      <div className={`border-b border-gray-200 backdrop-blur-lg sticky top-0`}>
+        <div
+          className={`w-full h-13 mx-auto flex justify-between items-center px-5.5 max-w-7xl`}
+        >
+          <img
+            src={logo}
+            alt="logo"
+            className={`w-fit h-6.75`}
+            onClick={handleLogoClick}
+          />
 
-        {user && (
-          <div className={`flex gap-x-5`}>
-            <div className={`gap-x-1 items-center hidden sm:flex`}>
-              <FiUser className={`text-lg`} />
-              <span className={`text-xs font-medium`}>{user.email}</span>
-            </div>
+          {user && (
+            <div className={`flex gap-x-5`}>
+              <div className={`gap-x-1 items-center hidden sm:flex`}>
+                <FiUser className={`text-lg`} />
+                <span className={`text-xs font-medium`}>{user.email}</span>
+              </div>
 
-            <button
-              className={`flex items-center gap-x-1 border border-gray-300 rounded-sm px-2 py-1 hover:bg-gray-100 active:bg-gray-100`}
-              onClick={() => setIsLogoutModalOpen(true)}
-            >
-              <FiLogOut className={`text-sm`} />
-              <span
-                className={`text-[11px] font-semibold hidden sm:inline-block`}
+              <button
+                className={`flex items-center gap-x-1 border border-gray-300 rounded-sm px-2 py-1 hover:bg-gray-100 active:bg-gray-100`}
+                onClick={() => setIsLogoutModalOpen(true)}
               >
-                Logout
-              </span>
-            </button>
-          </div>
-        )}
+                <FiLogOut className={`text-sm`} />
+                <span
+                  className={`text-[11px] font-semibold hidden sm:inline-block`}
+                >
+                  Logout
+                </span>
+              </button>
+            </div>
+          )}
 
-        {location.pathname == "/" && (
-          <div className={`flex gap-x-5 items-center font-semibold`}>
-            <Link
-              to={"login"}
-              className={`text-[11.8px] text-gray-500 hover:text-black active:text-black`}
-            >
-              Login
-            </Link>
-            <Link
-              to={"signup"}
-              className={`text-[11.8px] text-white bg-black px-3 py-[4.5px] rounded-[0.4rem] active:scale-95 transition-transform duration-100 ease-in-out text-center`}
-            >
-              Get Started
-            </Link>
-          </div>
-        )}
+          {location.pathname == "/" && (
+            <div className={`flex gap-x-5 items-center font-semibold`}>
+              <Link
+                to={"login"}
+                className={`text-[11.8px] text-gray-500 hover:text-black active:text-black`}
+              >
+                Login
+              </Link>
+              <Link
+                to={"signup"}
+                className={`text-[11.8px] text-white bg-black px-3 py-[4.5px] rounded-[0.4rem] active:scale-95 transition-transform duration-100 ease-in-out text-center`}
+              >
+                Get Started
+              </Link>
+            </div>
+          )}
+        </div>
       </div>
-      <div className={`border-b border-b-gray-200`}></div>
 
       {isLogoutModalOpen && (
         <LogoutModal
