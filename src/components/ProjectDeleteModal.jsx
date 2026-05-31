@@ -10,7 +10,7 @@ function ProjectDeleteModal({
 }) {
   return (
     <div
-      className={`absolute inset-0 backdrop-blur-sm flex items-center justify-center px-5.5`}
+      className={`fixed inset-0 backdrop-blur-sm flex items-center justify-center px-5.5`}
     >
       <div
         className={`border border-gray-400 rounded-xl w-113 flex flex-col px-5 py-5 bg-white`}
