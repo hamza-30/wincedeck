@@ -11,3 +11,8 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
+
+::selection {
+  background-color: #f97314d1; /* your highlight color */
+  color: #ffffff; /* text color when selected */
+}
