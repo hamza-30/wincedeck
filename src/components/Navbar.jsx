@@ -24,7 +24,9 @@ function Navbar() {
 
   return (
     <>
-      <div className={`border-b border-gray-200 backdrop-blur-lg sticky top-0`}>
+      <div
+        className={`border-b border-gray-200 backdrop-blur-lg sticky top-0 z-50`}
+      >
         <div
           className={`w-full h-13 mx-auto flex justify-between items-center px-5.5 max-w-7xl`}
         >
