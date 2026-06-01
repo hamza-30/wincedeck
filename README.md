@@ -8,7 +8,7 @@ WinceDeck is a real-time error monitoring dashboard for web developers. Add a si
  
 ## Live Demo
  
-[wincedeck.vercel.app](https://www.wincedeck.vercel.app)
+[wincedeck.vercel.app](https://wincedeck.vercel.app)
  
 ---
  
