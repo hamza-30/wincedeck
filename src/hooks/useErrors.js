@@ -96,7 +96,7 @@ export function useErrors(projectId) {
 
       return acc;
     }, {}),
-  ).sort((a, b) => b.count - a.count);
+  ).sort((a, b) => new Date(b.lastSeen) - new Date(a.lastSeen));
 
   return {
     errorData,
