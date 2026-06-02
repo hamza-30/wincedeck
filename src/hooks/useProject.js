@@ -49,16 +49,25 @@ export function useProject(projectId) {
   const deleteProject = async () => {
     setDeleteLoading(true);
     try {
+      const resolvedRef = collection(db, "resolvedErrors", projectId, "groups");
       const logsRef = collection(db, "errors", projectId, "logs");
       const logsSnapshot = await getDocs(logsRef);
+      const resolvedDocsSnapshot = await getDocs(resolvedRef);
 
       await Promise.all(
         logsSnapshot.docs.map((document) =>
           deleteDoc(doc(db, "errors", projectId, "logs", document.id)),
         ),
+        resolvedDocsSnapshot.docs.map((document) =>
+          deleteDoc(
+            doc(db, "resolvedErrors", projectId, "groups", document.id),
+          ),
+        ),
       );
 
       await firestoreService.deleteDocument("errors", projectId);
+
+      await firestoreService.deleteDocument("resolvedErrors", projectId);
 
       await firestoreService.deleteDocument("projects", projectId);
 
