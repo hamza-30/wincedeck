@@ -8,8 +8,19 @@ export const getPagePath = (url) => {
 };
 
 export const getSource = (stackTrace) => {
-  let splitTrace = stackTrace.split("/");
-  return splitTrace[splitTrace.length - 1];
+  if (!stackTrace) return "Unknown";
+
+  const match = stackTrace.match(/(?:at .+?\()?(https?:\/\/.+?):(\d+):(\d+)/);
+
+  if (!match) return "Unknown";
+
+  const filePath = match[1];
+  const line = match[2];
+  const col = match[3];
+
+  const fileName = filePath.split("/").pop().split("?")[0];
+
+  return `${fileName}:${line}:${col}`;
 };
 
 export const getSeverity = (message) => {
