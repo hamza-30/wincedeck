@@ -70,7 +70,7 @@ export function useErrors(projectId) {
 
   const groupedErrors = Object.values(
     errorData.reduce((acc, err) => {
-      const key = `${err.message}__${err.source}`;
+      const key = `${err.message}__${getSource(err.stack)}`;
 
       if (!acc[key]) {
         acc[key] = {
