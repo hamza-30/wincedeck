@@ -10,6 +10,9 @@ function ErrorRowCard({
   severity,
   stackTrace,
   capturedAt,
+  activeTab,
+  onResolve,
+  onUnresolve,
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -39,6 +42,32 @@ function ErrorRowCard({
         <td className="text-[11px] pl-5.5 py-4 text-gray-500 align-middle pr-2">
           <div className="flex items-center justify-between whitespace-nowrap">
             <span>{timeAgo}</span>
+          </div>
+        </td>
+
+        <td className="text-xs text-right pr-2 w-46 py-4 text-gray-600 font-semibold align-middle">
+          <div className="flex items-center justify-between whitespace-nowrap">
+            {activeTab == "active" ? (
+              <button
+                className={`border border-gray-300 p-1.5 rounded-lg hover:text-green-500 hover:border-green-300 active:text-green-500 active:border-green-300 cursor-pointer`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onResolve(message, source);
+                }}
+              >
+                Mark as Resolved
+              </button>
+            ) : (
+              <button
+                className={`border border-gray-300 p-1.5 rounded-lg hover:text-red-500 hover:border-red-300 active:text-red-500 active:border-red-300 cursor-pointer`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onUnresolve(message, source);
+                }}
+              >
+                Mark as Unresolved
+              </button>
+            )}
             <MdKeyboardArrowRight
               className={`text-[1.20rem] text-gray-500 ml-2 transition-transform ease-in-out duration-150
               ${isOpen && "rotate-90"}`}
@@ -49,7 +78,7 @@ function ErrorRowCard({
 
       {isOpen && (
         <tr>
-          <td colSpan={4} className="p-0 border-b border-gray-200 bg-gray-50">
+          <td colSpan={5} className="p-0 border-b border-gray-200 bg-gray-50">
             <div className="w-full px-5.5 h-fit p-4 flex flex-col gap-y-2">
               <span
                 className={`text-[11px] text-gray-500 font-semibold tracking-wide`}

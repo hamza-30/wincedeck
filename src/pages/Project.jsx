@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useProject } from "../hooks/useProject";
 import { LuCopy } from "react-icons/lu";
@@ -9,11 +9,16 @@ import { useErrors } from "../hooks/useErrors";
 import ErrorBarChart from "../components/ErrorBarChart";
 import ErrorTable from "../components/ErrorTable";
 import PageTransition from "../components/PageTransition";
+import { useResolvedErrors } from "../hooks/useResolvedErrors";
+import { toast } from "sonner";
+
+const getKey = (err) => btoa(`${err.message}__${err.source}`);
 
 function Project() {
   const { projectId } = useParams();
   const [isSnippetCopied, setIsSnippetCopied] = useState(false);
   const [isButtonCopied, setIsButtonCopied] = useState(false);
+  const [activeTab, setActiveTab] = useState("active");
   const { projectData, loading } = useProject(projectId);
   const {
     errorLoading,
@@ -25,6 +30,8 @@ function Project() {
     barChartData,
     groupedErrors,
   } = useErrors(projectId);
+  const { resolvedKeys, resolvedDocs, resolveError, unresolveError } =
+    useResolvedErrors(projectId);
 
   const onCopyClick = async (setCopied) => {
     const scriptTag = `<script src="https://wincedeck.vercel.app/tracker.js?id=${projectId}"></script>`;
@@ -37,6 +44,30 @@ function Project() {
       console.log(error);
     }
   };
+
+  const activeErrors = groupedErrors.filter(
+    (err) => !resolvedKeys.has(getKey(err)),
+  );
+  const resolvedErrors = groupedErrors.filter((err) =>
+    resolvedKeys.has(getKey(err)),
+  );
+
+  useEffect(() => {
+    if (resolvedKeys.size == 0 || groupedErrors.length == 0) return;
+
+    groupedErrors.forEach((err) => {
+      const key = getKey(err);
+
+      if (resolvedKeys.has(key)) {
+        const resolvedAt = resolvedDocs[key]?.resolvedAt;
+
+        if (resolvedAt && err.lastSeen > resolvedAt) {
+          unresolveError(err.message, err.source);
+          toast.warning(`Error reoccurred: ${err.message.slice(0, 60)}`);
+        }
+      }
+    });
+  }, [resolvedKeys, groupedErrors]);
 
   if (loading || errorLoading) {
     return (
@@ -174,7 +205,38 @@ function Project() {
             barChartData={barChartData}
           />
 
-          <ErrorTable errorData={groupedErrors} />
+          <div className={`w-full flex gap-x-3 mt-8 mb-2`}>
+            <button
+              className={`flex gap-x-2 items-center h-fit text-sm border-2 rounded-lg px-3 py-2 font-medium transition-discrete ease-in-out duration-150
+                ${activeTab == "active" ? "border-[#f97314] text-[#f97314]" : "border-gray-200 text-black"}`}
+              onClick={() => setActiveTab("active")}
+            >
+              Active{" "}
+              <div
+                className={`h-5 w-5 rounded-full text-xs bg-gray-100 flex items-center justify-center text-black`}
+              >
+                {activeErrors.length}
+              </div>
+            </button>
+            <button
+              className={`flex gap-x-2 items-center h-fit text-sm border-2 rounded-lg px-3 py-2 font-medium transition-discrete ease-in-out duration-150
+                ${activeTab == "resolved" ? "border-[#f97314] text-[#f97314]" : "border-gray-200 text-black"}`}
+              onClick={() => setActiveTab("resolved")}
+            >
+              Resolved{" "}
+              <div
+                className={`h-5 w-5 rounded-full text-xs bg-gray-100 flex items-center justify-center text-black`}
+              >
+                {resolvedErrors.length}
+              </div>
+            </button>
+          </div>
+          <ErrorTable
+            errorData={activeTab == "active" ? activeErrors : resolvedErrors}
+            onResolve={resolveError}
+            onUnresolve={unresolveError}
+            activeTab={activeTab}
+          />
         </div>
       </PageTransition>
     </>

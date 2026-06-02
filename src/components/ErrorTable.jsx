@@ -6,7 +6,7 @@ import { CiViewTable } from "react-icons/ci";
 
 const dateFilterList = ["Today", "Last 7 days", "Last 30 days", "All time"];
 
-function ErrorTable({ errorData }) {
+function ErrorTable({ errorData, onResolve, onUnresolve, activeTab }) {
   const [isDateFilterOpen, setIsDateFilterOpen] = useState(false);
   const [dateFilter, setDateFilter] = useState("Today");
   const [searchError, setSearchError] = useState("");
@@ -122,11 +122,12 @@ function ErrorTable({ errorData }) {
             <thead>
               <tr className="h-9 text-[10.5px] bg-gray-50 text-gray-500 tracking-wider border-b border-gray-200">
                 <th className="text-left pl-5.5 font-medium">ERROR MESSAGE</th>
-                <th className="text-left pl-5.5 font-medium hidden md:table-cell">
+                <th className="text-left pl-5.5 min-w-30 font-medium hidden md:table-cell">
                   PAGE URL
                 </th>
-                <th className="text-right pr-14 w-28 font-medium">COUNT</th>
-                <th className="text-left pl-5.5 w-28 font-medium">TIME</th>
+                <th className="text-right pr-14 min-w-28 font-medium">COUNT</th>
+                <th className="text-left pl-5.5 min-w-28 font-medium">TIME</th>
+                <th>{""}</th>
               </tr>
             </thead>
 
@@ -143,6 +144,9 @@ function ErrorTable({ errorData }) {
                     severity={err.severity}
                     stackTrace={err.stackTrace}
                     capturedAt={err.capturedAt}
+                    activeTab={activeTab}
+                    onResolve={onResolve}
+                    onUnresolve={onUnresolve}
                   />
                 ))}
             </tbody>
