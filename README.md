@@ -217,6 +217,20 @@ VITE_FIREBASE_APP_ID=your_app_id
 npm run dev
 ```
 
+## Screenshots
+
+### Dashboard
+
+<img width="1920" height="970" alt="screencapture-localhost-5173-dashboard-2026-06-02-23_27_26" src="https://github.com/user-attachments/assets/4ddc327a-9dff-4416-a3fb-0b35f09db8bc" />
+
+### Project
+
+<img width="1920" height="1485" alt="screencapture-localhost-5173-dashboard-px-mpr6nv8n-2026-06-02-23_26_36" src="https://github.com/user-attachments/assets/79fc9849-9451-4135-8269-a84ccc7844d6" />
+
+### Settings
+
+<img width="1920" height="1082" alt="screencapture-localhost-5173-dashboard-px-mpr6nv8n-settings-2026-06-02-23_26_52" src="https://github.com/user-attachments/assets/0067c615-5e6b-447a-b1f6-dd8598973092" />
+
 ---
 
 ## Known Limitations
