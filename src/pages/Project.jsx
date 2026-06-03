@@ -63,7 +63,7 @@ function Project() {
 
         if (resolvedAt && err.lastSeen > resolvedAt) {
           unresolveError(err.message, err.source);
-          toast.warning(`Error reoccurred: ${err.message.slice(0, 60)}`);
+          toast.warning(`Error reoccurred: ${err.message.slice(0, 60)}...`);
         }
       }
     });
