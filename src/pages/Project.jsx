@@ -173,7 +173,7 @@ function Project() {
               </button>
             </div>
 
-            <div className="bg-black flex items-center pl-3 text-white w-full h-11 rounded-sm overflow-hidden font-mono text-sm text-nowrap">
+            <div className="bg-black flex items-center pl-3 text-white w-full h-11 rounded-sm overflow-x-scroll font-mono text-sm text-nowrap">
               <span className={`text-zinc-300 text-xs`}>&lt;script&nbsp;</span>
               <span className={`text-emerald-400 text-xs`}>src</span>
               <span className={`text-xs`}>=</span>
