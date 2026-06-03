@@ -54,6 +54,19 @@ export const getSeverity = (message, type = "javascript") => {
   return "ERROR";
 };
 
+export const getSeverityColor = (severity) => {
+  switch (severity) {
+    case "ERROR":
+      return "text-red-500";
+    case "WARNING":
+      return "text-amber-500";
+    case "PROMISE REJECTION":
+      return "text-purple-500";
+    default:
+      return "text-gray-500";
+  }
+};
+
 export const getClockTime = (time) => {
   return time.split("T")[1].slice(0, 8);
 };

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { MdKeyboardArrowRight } from "react-icons/md";
+import { getSeverityColor } from "../utils/errorUtils";
 
 function ErrorRowCard({
   message,
@@ -18,6 +19,8 @@ function ErrorRowCard({
 
   const stack = stackTrace.split("\n");
 
+  const severityColors = getSeverityColor(severity);
+
   return (
     <>
       <tr
@@ -25,7 +28,7 @@ function ErrorRowCard({
         onClick={() => setIsOpen(!isOpen)}
       >
         <td className="pl-5.5 py-4 align-middle">
-          <div className="text-xs text-red-500 font-semibold mb-0.5">
+          <div className={`text-xs ${severityColors} font-semibold mb-0.5`}>
             {message}
           </div>
           <div className="text-[11px] text-gray-500">{source}</div>
