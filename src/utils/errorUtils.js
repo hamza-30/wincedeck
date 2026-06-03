@@ -23,12 +23,35 @@ export const getSource = (stackTrace) => {
   return `${fileName}:${line}:${col}`;
 };
 
-export const getSeverity = (message) => {
-  if (message.toLowerCase().includes("error")) {
-    return "ERROR";
-  } else if (message.toLowerCase().includes("warning")) {
+export const getSeverity = (message, type = "javascript") => {
+  if (!message) return "ERROR";
+
+  const lowerCaseMsg = String(message).toLowerCase();
+
+  if (
+    type === "promise" ||
+    lowerCaseMsg.includes("unhandledrejection") ||
+    lowerCaseMsg.includes("promise") ||
+    lowerCaseMsg.includes("fetch")
+  ) {
+    return "PROMISE REJECTION";
+  }
+
+  if (lowerCaseMsg.includes("warning") || lowerCaseMsg.includes("deprecated")) {
     return "WARNING";
   }
+
+  if (
+    lowerCaseMsg.includes("error") ||
+    lowerCaseMsg.includes("exception") ||
+    lowerCaseMsg.includes("fail") ||
+    lowerCaseMsg.includes("timeout") ||
+    lowerCaseMsg.includes("network")
+  ) {
+    return "ERROR";
+  }
+
+  return "ERROR";
 };
 
 export const getClockTime = (time) => {

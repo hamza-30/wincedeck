@@ -77,7 +77,7 @@ export function useErrors(projectId) {
           message: err.message,
           source: getSource(err.stack),
           pageUrl: getPagePath(err.url),
-          severity: getSeverity(err.message),
+          severity: getSeverity(err.message, err.type),
           stackTrace: err.stack,
           capturedAt: getClockTime(err.timestamp),
           timeAgo: convertToUpdatedAgoTime(err.timestamp),
