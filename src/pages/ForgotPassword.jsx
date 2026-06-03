@@ -30,8 +30,8 @@ function ForgotPassword() {
       <div
         className={`bg-white w-full lg:w-1/2 px-5.5 flex justify-center items-center`}
       >
-        <PageTransition>
-          <div className={`w-94`}>
+        <PageTransition className={`w-full`}>
+          <div className={`w-full lg:w-94`}>
             <div
               className={`font-mono text-[0.69rem] text-[#f97314] tracking-wider mb-1.5`}
             >
